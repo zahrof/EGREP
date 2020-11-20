@@ -207,7 +207,7 @@ public class AdjacencyMatrix {
     }
 
     protected Set<SetOfStates> minimisation() {
-        Set<SetOfStates> fnf = getFinalsNonFinals();
+        Set<SetOfStates> fnf = dfaAutomata();
 
         int newCounter=0;
         boolean changes=false;

@@ -54,9 +54,9 @@ public class RegEx {
             s.fromRegExTree(ret);
             AdjacencyMatrix nfa = new AdjacencyMatrix(s);
             AdjacencyMatrix dfa = nfa.dfa();
-            Set<States> min = dfa.minimisation();
-            EAutomata minAutomata= new EAutomata(min,dfa.creationMinAutomata(min));
-            minAutomata.toString();
+            dfa.minimisation();
+            //EAutomata minAutomata= new EAutomata(min,dfa);
+            //minAutomata.toString();
             System.out.println("  >> Tree result: "+ret.toString()+".");
 
         }

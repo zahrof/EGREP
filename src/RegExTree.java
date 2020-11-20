@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class RegExTree {
     protected int root;
     protected ArrayList<RegExTree> subTrees;
+
     public RegExTree(int root, ArrayList<RegExTree> subTrees) {
         this.root = root;
         this.subTrees = subTrees;

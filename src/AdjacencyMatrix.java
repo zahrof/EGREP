@@ -11,7 +11,7 @@ public class AdjacencyMatrix {
         matrix = new ArrayList[EAutomata.getCounter()][ASCCI + 1];
         for(int i = 0; i < matrix.length; i++)
             for(int j = 0; j < matrix[i].length; j++)
-                matrix[i][j] = new ArrayList<State>();
+                matrix[i][j] = new ArrayList<>();
         boolean[] checked = new boolean[EAutomata.getCounter()];
         Stack<EAutomata> process = new Stack<>();
         process.push(a);
@@ -83,8 +83,7 @@ public class AdjacencyMatrix {
         return res;
     }
 
-    private State find(Set<States> newAut,
-                       States s, int n) {
+    private State find(Set<States> newAut, States s, int n) {
         Iterator<State> i = s.states.iterator();
         State a = null;
         if(i.hasNext()) a =  i.next();
@@ -144,24 +143,17 @@ public class AdjacencyMatrix {
 
     }
 
-    public Set<States> getFinalsNonFinals(){
-        Set<States> fnf = new HashSet<>();
-        States.reset();
-        States f = new States();
-        States nf = new States();
-        nf.add(new State(0, false));
+    public ArrayList<MinState> getMinAutomate(){
+        MinState[] tab = new MinState[this.matrix.length];
+       for (int i =0; i < this.matrix.length; i++) tab[i]= new MinState(i);
         for(int i = 0; i < matrix.length; i++)
             for(int j = 0; j < ASCCI; j++)
                 if (!matrix[i][j].isEmpty())
                     for(State s : matrix[i][j]) {
-                        if (s.terminal) {
-                            if (!f.contains(s)) f.add(s);
-                        } else {
-                            if (!nf.contains(s)) nf.add(s);
-                        }
+                        tab[s.id].terminal=s.terminal;
+                        tab[i].sons.put(j,tab[s.id]);
                     }
-        fnf.add(f); fnf.add(nf);
-        return fnf;
+        return new ArrayList<>(Arrays.asList(tab)) ;
 
     }
 
@@ -180,8 +172,43 @@ public class AdjacencyMatrix {
         return false;
     }
 
-    public Set<States> minimisation() {
-        Set<States> fnf = getFinalsNonFinals();
+    public MinState minimisation() {
+        ArrayList<MinState> automate =getMinAutomate();
+        int sizeAutomata = automate.size();
+        int i=0;
+        while(i<sizeAutomata){
+             int j=1;
+            MinState ms;
+            while(j<sizeAutomata){
+                ms=automate.get(i).fusion(automate.get(j));
+                if(ms!=null && i!=j){
+                    automate.add(ms.clone()); // CAREFUULLLLLL Risque d'erreur
+                    if(i<j){
+                        automate.remove(j);
+                        automate.remove(i); 
+                    }else {
+                        automate.remove(i);
+                        automate.remove(j);
+                    }
+                    sizeAutomata--;
+                    i=0; 
+                }
+                j++;
+            }i++; 
+        }
+        MinState min = null;
+        for (MinState ms: automate) {
+            if(ms.id==0){
+                min=ms; 
+                break; 
+            }
+        }
+        return min; 
+    }
+
+    public Set<States> minimisation2() {
+        getMinAutomate();
+        Set<States> fnf = null;
         System.out.println(fnf);
         boolean changes = true;
         States.reset();
@@ -202,18 +229,23 @@ public class AdjacencyMatrix {
                     }
                 for (Couple c : couples){
                     boolean equal = true;
+                    Set<Integer> ways = new HashSet<>();
                     for(int i = 0; i < ASCCI; i++){
                         if(!matrix[c.a.id][i].isEmpty() && matrix[c.b.id][i].isEmpty()
                         || matrix[c.a.id][i].isEmpty() && !matrix[c.b.id][i].isEmpty()){
                             equal = false;
-                            if(!present(nouv, c.a)) nouv.add((new States()).add(c.a));
-                            if(!present(nouv,c.b)) nouv.add((new States()).add(c.b));
-                            continue;
+                            if(!present(nouv, c.a)) nouv.add((new States()).add(c.a,i));
+                            if(!present(nouv,c.b)) nouv.add((new States()).add(c.b,i));
+                            break;
                         }
                         if(matrix[c.a.id][i].isEmpty() && matrix[c.b.id][i].isEmpty()) continue;
-                        if(!sameStateSet(c.a, c.b, fnf)) equal = false;
+                        if(!sameStateSet(c.a, c.b, fnf)){
+                            equal = false;
+                            break;
+                        }
+                        ways.add(i);
                     }
-                    if(equal) nouv = ajout(c.a,c.b,nouv);
+                    if(equal) nouv = ajout(c.a,c.b,nouv,ways);
                 }
             }
             if(equals(nouv,fnf)) changes = false;
@@ -222,7 +254,7 @@ public class AdjacencyMatrix {
         return fnf;
     }
 
-    private Set<States> ajout(State a, State b, Set<States> nouv) {
+    private Set<States> ajout(State a, State b, Set<States> nouv, Set<Integer> ways) {
         for (States s: nouv)
             if(s.contains(a)&&s.contains(b)) return nouv;
         Set<States> res = new HashSet<>();
@@ -231,14 +263,14 @@ public class AdjacencyMatrix {
             States aux = new States();
             for (State s2 : s1.states) {
                 if ((s2.equals(a))||(s2.equals(b))){
-                    aux.add(a).add(b);
+                    aux.add(a,ways).add(b,ways);
                     ajoutAB=true;
                 }
-                else aux.add(s2);
+                else aux.add(s2,ways);
             }
             if(aux.states.size()>0)res.add(aux);
         }
-        if(!ajoutAB) res.add(new States().add(a).add(b));
+        if(!ajoutAB) res.add(new States().add(a,ways).add(b,ways));
         return res;
     }
 

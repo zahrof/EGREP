@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,7 @@ public class States {
     public Set<State> states = new HashSet<>();
     public int id;
     public boolean terminal = false;
+    public Set<Integer> ways= new HashSet<>();
 
     public States(int id, boolean terminal) {
         this.id=id;
@@ -32,8 +34,15 @@ public class States {
         }
     }
 
-    public States add(State s){
+    public States add(State s,int way){
         states.add(s);
+        this.ways.add(way);
+        if (s.terminal) terminal = true;
+        return this;
+    }
+    public States add(State s, Set<Integer> ways) {
+        states.add(s);
+        this.ways=ways;
         if (s.terminal) terminal = true;
         return this;
     }
@@ -73,4 +82,6 @@ public class States {
         return true;
 
     }
+
+
 }
