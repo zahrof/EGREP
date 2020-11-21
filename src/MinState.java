@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MinState {
     public HashMap<Integer,MinState> sons= new HashMap<>();
     public int id;
     public boolean terminal=false;
+    public HashMap<Integer,ArrayList<MinState>> father= new HashMap<>();
 
     public MinState(int id) {
         this.id = id;
@@ -25,11 +27,23 @@ public class MinState {
         if(ms==this) return this;
         if(ms==null) return this;
         if(ms.terminal!=this.terminal) return null;
-        for (Integer i:this.sons.keySet())
-            if (!this.sons.get(i).equals(sons.getOrDefault(i, this.sons.get(i)))) return null;
+        for (Integer i:this.sons.keySet()) {
+            if(!ms.sons.containsKey(i)) continue;
+            if(this.sons.get(i).equals(this)&& ms.sons.get(i).equals(ms)) continue;
+            if(this.sons.get(i).equals(this)&& ms.sons.get(i).equals(this)) continue;
+            if(this.sons.get(i).equals(ms)&& ms.sons.get(i).equals(ms)) continue;
+            if (!this.sons.get(i).equals(sons.get(i))) return null;
+        }
         MinState res;
         if(ms.id>this.id) res  = new MinState(this.id,this.terminal);
         else res = new MinState(ms.id);
+        for(Integer i : this.father.keySet())
+            for(MinState f : this.father.get(i))
+                f.sons.put(i,res);
+
+        for(Integer i : ms.father.keySet())
+            for(MinState f : ms.father.get(i))
+                f.sons.put(i,res);
         res.sons.putAll(this.sons);
         res.sons.putAll(ms.sons);
         return res;

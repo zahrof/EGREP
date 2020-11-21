@@ -146,13 +146,18 @@ public class AdjacencyMatrix {
     public ArrayList<MinState> getMinAutomate(){
         MinState[] tab = new MinState[this.matrix.length];
        for (int i =0; i < this.matrix.length; i++) tab[i]= new MinState(i);
-        for(int i = 0; i < matrix.length; i++)
-            for(int j = 0; j < ASCCI; j++)
+        for(int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < ASCCI; j++) {
                 if (!matrix[i][j].isEmpty())
-                    for(State s : matrix[i][j]) {
-                        tab[s.id].terminal=s.terminal;
-                        tab[i].sons.put(j,tab[s.id]);
+                    for (State s : matrix[i][j]) {
+                        tab[s.id].terminal = s.terminal;
+                        tab[i].sons.put(j, tab[s.id]);
+                        ArrayList<MinState> value = tab[s.id].father.getOrDefault(j,new ArrayList<>());
+                        value.add(tab[i]);
+                        tab[s.id].father.put(j,value);
                     }
+            }
+        }
         return new ArrayList<>(Arrays.asList(tab)) ;
 
     }
@@ -182,7 +187,7 @@ public class AdjacencyMatrix {
             while(j<sizeAutomata){
                 ms=automate.get(i).fusion(automate.get(j));
                 if(ms!=null && i!=j){
-                    automate.add(ms.clone()); // CAREFUULLLLLL Risque d'erreur
+                    automate.add(ms.clone()); // CAREFULL Risque d'erreur
                     if(i<j){
                         automate.remove(j);
                         automate.remove(i); 
