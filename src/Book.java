@@ -58,6 +58,7 @@ public class Book{
     }
 
     public char get(int pageIndex, int lineIndex, int charIndex){
+        System.out.println("get "+pageIndex+" "+lineIndex+" "+charIndex +" res "+this.get(pageIndex, lineIndex).charAt(charIndex));
         return this.get(pageIndex, lineIndex).charAt(charIndex);
     }
 }

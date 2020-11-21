@@ -28,7 +28,7 @@ public class MinState {
         if(ms==null) return this;
         if(ms.terminal!=this.terminal) return null;
         for (Integer i:this.sons.keySet()) {
-            if(!ms.sons.containsKey(i)) continue;
+            if(!ms.sons.containsKey(i)) return null;
             if(this.sons.get(i).equals(this)&& ms.sons.get(i).equals(ms)) continue;
             if (!this.sons.get(i).equals(ms.sons.get(i))) return null;
         }

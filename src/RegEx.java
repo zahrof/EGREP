@@ -22,6 +22,25 @@ public class RegEx {
     //CONSTRUCTOR
     public RegEx(){}
 
+    //method move
+
+    /**
+     *
+     * @param book
+     * @param start
+     * @param gap
+     * @return
+     */
+    protected static Pose move(Book book, Pose start, int gap){
+        if (gap == 0) return start;
+        if (start.col < book.get(start.page, start.line).length() - 1)
+            return move(book, new Pose(start.page, start.line, start.col + 1), gap - 1);
+        else if (start.line < book.size(start.page) - 1)
+            return move (book, new Pose(start.page, start.line + 1, 0), gap);
+        else if (start.page < book.size() - 1)
+            return move (book, new Pose(start.page + 1, 0, 0), gap - 1);
+        return null;
+    }
     //MAIN
     public static void main(String arg[]) {
         System.out.println("Welcome to Bogota, Mr. Thomas Anderson.");
@@ -52,9 +71,25 @@ public class RegEx {
 
             // création de l'automate à partir du regextree.
             s.fromRegExTree(ret);
+            System.out.println("Starting 1");
             AdjacencyMatrix nfa = new AdjacencyMatrix(s);
+            System.out.println("Starting 2");
             AdjacencyMatrix dfa = nfa.dfa();
-            dfa.minimisation();
+            System.out.println("Starting 3");
+            MinState ms = dfa.minimisation();
+            System.out.println("Starting 4");
+
+            Book b = new Book("/home/zahrof/Documents/Master2/DAAR/Projet1/EGREP/src/Babylone.txt");
+            Pose cursorBook = new Pose();
+            ArrayList<Word> positions = new ArrayList<>();
+            Pose end;
+            while(cursorBook!=null){
+                end = app(b, cursorBook, ms);
+                if(end!=null) positions.add(new Word(cursorBook,end));
+                cursorBook = move (b,cursorBook,1);
+            }
+            System.out.println("Positions "+positions);
+
             //EAutomata minAutomata= new EAutomata(min,dfa);
             //minAutomata.toString();
             System.out.println("  >> Tree result: "+ret.toString()+".");
@@ -64,6 +99,17 @@ public class RegEx {
         System.out.println("  >> ...");
         System.out.println("  >> Parsing completed.");
         System.out.println("Goodbye Mr. Anderson.");
+    }
+
+    // return null
+    private static Pose app(Book b, Pose cursorBook, MinState a) {
+        int i = b.get(cursorBook.page, cursorBook.line, cursorBook.col);
+        MinState son = a.sons.getOrDefault(i, null);
+        if(son!=null){
+            if(son.terminal) return cursorBook;
+            return app(b,move(b,cursorBook,1),son);
+        }
+        else return null;
     }
 
 
