@@ -30,24 +30,47 @@ public class MinState {
         for (Integer i:this.sons.keySet()) {
             if(!ms.sons.containsKey(i)) continue;
             if(this.sons.get(i).equals(this)&& ms.sons.get(i).equals(ms)) continue;
-            if(this.sons.get(i).equals(this)&& ms.sons.get(i).equals(this)) continue;
-            if(this.sons.get(i).equals(ms)&& ms.sons.get(i).equals(ms)) continue;
-            if (!this.sons.get(i).equals(sons.get(i))) return null;
+            if (!this.sons.get(i).equals(ms.sons.get(i))) return null;
         }
         MinState res;
         if(ms.id>this.id) res  = new MinState(this.id,this.terminal);
         else res = new MinState(ms.id);
-        for(Integer i : this.father.keySet())
-            for(MinState f : this.father.get(i))
-                f.sons.put(i,res);
 
-        for(Integer i : ms.father.keySet())
-            for(MinState f : ms.father.get(i))
-                f.sons.put(i,res);
+        //System.out.println("new fusion " + this.id + " with " + ms.id);
         res.sons.putAll(this.sons);
         res.sons.putAll(ms.sons);
+
+        res.father.putAll(this.father);
+        res.father.putAll(ms.father);
+
+        for(Integer key : res.sons.keySet()) {
+            if (res.sons.get(key) == this || res.sons.get(key) == ms)
+                res.sons.put(key, res);
+            else{
+                res.sons.get(key).father.get(key).remove(this);
+                res.sons.get(key).father.get(key).remove(ms);
+                res.sons.get(key).father.get(key).add(res);
+            }
+        }
+
+        MinState old;
+        for(Integer key : res.father.keySet())
+            for (MinState f : res.father.get(key)){
+                if (f.equals(this) || f.equals(ms)){
+                    res.father.get(key).remove(this);
+                    res.father.get(key).remove(ms);
+                    res.father.get(key).add(res);
+                } else if (f.sons.containsKey(key)) {
+                    old = f.sons.get(key);
+                    f.sons.put(key, res);
+                    System.out.println(old);
+                }
+            }
+
+
         return res;
     }
+
 
     public MinState clone(){
         MinState res = new MinState(id);
