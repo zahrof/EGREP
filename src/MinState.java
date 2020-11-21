@@ -34,7 +34,7 @@ public class MinState {
         }
         MinState res;
         if(ms.id>this.id) res  = new MinState(this.id,this.terminal);
-        else res = new MinState(ms.id);
+        else res = new MinState(ms.id, this.terminal);
 
         //System.out.println("new fusion " + this.id + " with " + ms.id);
         res.sons.putAll(this.sons);
@@ -44,7 +44,7 @@ public class MinState {
         res.father.putAll(ms.father);
 
         for(Integer key : res.sons.keySet()) {
-            if (res.sons.get(key) == this || res.sons.get(key) == ms)
+            if (res.sons.get(key).equals(this) || res.sons.get(key).equals(ms))
                 res.sons.put(key, res);
             else{
                 res.sons.get(key).father.get(key).remove(this);
@@ -76,6 +76,7 @@ public class MinState {
         MinState res = new MinState(id);
         res.terminal=terminal;
         res.sons= (HashMap<Integer, MinState>) this.sons.clone();
+        res.father = (HashMap<Integer, ArrayList<MinState>>) this.father.clone();
         return res;
     }
 }

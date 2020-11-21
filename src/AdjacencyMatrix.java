@@ -187,7 +187,7 @@ public class AdjacencyMatrix {
             while(j<sizeAutomata){
                 ms=automate.get(i).fusion(automate.get(j));
                 if(ms!=null && i!=j){
-                    automate.add(ms.clone()); // CAREFULL Risque d'erreur
+                    automate.add(ms); // CAREFULL Risque d'erreur
                     if(i<j){
                         automate.remove(j);
                         automate.remove(i); 
@@ -196,7 +196,8 @@ public class AdjacencyMatrix {
                         automate.remove(j);
                     }
                     sizeAutomata--;
-                    i=0; 
+                    i=0;
+                    j=0;
                 }
                 j++;
             }i++; 
