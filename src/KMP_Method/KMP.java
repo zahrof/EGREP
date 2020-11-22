@@ -2,7 +2,6 @@ package KMP_Method;
 
 import FileReadingUtilitaryClasses.Book;
 import FileReadingUtilitaryClasses.Position;
-
 import java.util.ArrayList;
 
 
@@ -18,19 +17,20 @@ public class KMP {
         Position start = current.copy();
         int index = 0;
         while (current.page < book.getSize()){
-            if(motif.charAt(index) == book.getCharacter(current.page, current.line, current.col)) {
+            if(motif.charAt(index) ==
+                    book.getCharacter(current.page, current.line, current.col)){
                 index++;
                 if (index == motif.length()) {
                     result.add(start.copy());
 
-                    current = Position.move(book, start, carryover[index] + 1);
+                    current = Position.move(book,start, carryover[index]+1);
                     index = 0;
                 }
                 else{
                     current = Position.move(book, current, 1);
                 }
             } else {
-                current = Position.move(book, start, carryover[index] + 1);
+                current = Position.move(book, start, carryover[index]+1);
                 index = 0;
             }
             if (index == 0) start = current.copy();
@@ -39,7 +39,7 @@ public class KMP {
     }
 
     public int[] carryover(String motif){
-        return new int[motif.length() + 1];
+        return new int[motif.length()+1];
     }
 
 

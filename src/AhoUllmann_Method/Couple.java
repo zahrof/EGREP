@@ -13,6 +13,7 @@ public class Couple {
         if (o == null) return false;
         if (!(o instanceof Couple)) return false;
         Couple t = (Couple) o;
-        return a.equals(t.a) && b.equals(t.b) || a.equals(t.b) && b.equals(t.a);
+        return a.equals(t.a) && b.equals(t.b) ||
+                a.equals(t.b) && b.equals(t.a);
     }
 }

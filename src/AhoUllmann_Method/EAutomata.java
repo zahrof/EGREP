@@ -11,7 +11,8 @@ public class EAutomata {
     public boolean terminal;
     public HashMap<Integer, ArrayList<EAutomata>> sons;
 
-    public EAutomata(HashMap<Integer, ArrayList<EAutomata>> sons, boolean isFinal){
+    public EAutomata(HashMap<Integer, ArrayList<EAutomata>> sons,
+                     boolean isFinal){
         this.sons = sons;
         this.terminal = isFinal;
         id = counter;
@@ -41,7 +42,9 @@ public class EAutomata {
 
     public void put(Integer key, EAutomata a) {
         if (a == null) return;
-        ArrayList<EAutomata> value = (ArrayList<EAutomata>) sons.getOrDefault(key, new ArrayList<>()).clone();
+        ArrayList<EAutomata> value =
+                (ArrayList<EAutomata>) sons.getOrDefault(key,
+                        new ArrayList<>()).clone();
         value.add(a);
         sons.put(key, value);
     }
@@ -50,7 +53,9 @@ public class EAutomata {
         switch (ret.root){
             case RegEx.CONCAT:
                 // Creation de la deuxieme partie du chemin
-                EAutomata s = new EAutomata((HashMap<Integer, ArrayList<EAutomata>>) sons.clone(),false);
+                EAutomata s = new EAutomata(
+                        (HashMap<Integer, ArrayList<EAutomata>>)
+                                sons.clone(),false);
 
                 // Modification des chemins du noeud courant
                 sons.clear(); this.put(-1, s);
@@ -62,12 +67,16 @@ public class EAutomata {
             case RegEx.ALTERN:
                 // Creation chemin alternatif R1
                 EAutomata s1 = new EAutomata(new HashMap<>(),false);
-                EAutomata e1 = new EAutomata((HashMap<Integer, ArrayList<EAutomata>>) sons.clone(),false);
+                EAutomata e1 = new EAutomata(
+                        (HashMap<Integer, ArrayList<EAutomata>>)
+                                sons.clone(),false);
                 s1.put(-1, e1); s1.fromRegExTree(ret.subTrees.get(0)); // Liaison + Calcul AhoUllmann_Method.RegEx R1
 
                 // Creation chemin alternatif R2
                 EAutomata s2 = new EAutomata(new HashMap<>(),false);
-                EAutomata e2 = new EAutomata((HashMap<Integer, ArrayList<EAutomata>>) sons.clone(),false);
+                EAutomata e2 = new EAutomata(
+                        (HashMap<Integer, ArrayList<EAutomata>>)
+                                sons.clone(),false);
                 s2.put(-1, e2); s2.fromRegExTree(ret.subTrees.get(1)); // Liaison + Calcul AhoUllmann_Method.RegEx R2
 
                 // Modification des chemins du noeud courant
@@ -76,7 +85,9 @@ public class EAutomata {
             case RegEx.ETOILE:
                 // Creation du chemin optionnel
                 EAutomata so = new EAutomata(new HashMap<>(),false);
-                EAutomata eo = new EAutomata((HashMap<Integer, ArrayList<EAutomata>>) sons.clone(),false);
+                EAutomata eo = new EAutomata(
+                        (HashMap<Integer, ArrayList<EAutomata>>)
+                                sons.clone(),false);
 
                 so.put(-1, eo);
                 eo.put(-1, so);

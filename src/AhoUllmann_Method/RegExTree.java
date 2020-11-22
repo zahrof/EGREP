@@ -14,7 +14,8 @@ public class RegExTree {
     public String toString() {
         if (subTrees.isEmpty()) return rootToString();
         String result = rootToString()+"("+subTrees.get(0).toString();
-        for (int i=1;i<subTrees.size();i++) result+=","+subTrees.get(i).toString();
+        for (int i=1;i<subTrees.size();i++)
+            result+=","+subTrees.get(i).toString();
         return result+")";
     }
     private String rootToString() {

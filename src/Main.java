@@ -14,10 +14,13 @@ public class Main {
 
 
 /*    public static void main(String arg[]){
-        FileReadingUtilitaryClasses.Book book = new FileReadingUtilitaryClasses.Book("/home/zahrof/Documents/Master2/DAAR/Projet1/EGREP/src/Babylone.txt");
+        FileReadingUtilitaryClasses.Book book =
+        new FileReadingUtilitaryClasses.
+        Book("/home/zahrof/Documents/Master2/DAAR/Projet1/EGREP/src/Babylone.txt");
         String motif = "Sargon";
 
-        ArrayList<FileReadingUtilitaryClasses.Pose> kmp = (new KMP_Method.KMP()).KMP_Method.KMP(motif, book);
+        ArrayList<FileReadingUtilitaryClasses.Pose> kmp =
+         (new KMP_Method.KMP()).KMP_Method.KMP(motif, book);
         System.out.print(kmp );
     }*/
 
@@ -64,10 +67,12 @@ public class Main {
             try {
                 ret = re.parse();
             } catch (Exception e) {
-                System.err.println("  >> ERROR: syntax error for regEx \""+regEx+"\".");
+                System.err.println("  >> ERROR: syntax error for" +
+                        " regEx \""+regEx+"\".");
             }
             EAutomata s = new EAutomata(new HashMap<>(),false);
-            s.put(-1, new EAutomata(new HashMap<>(), true)); // add final state with epsilon
+            s.put(-1, new EAutomata(new HashMap<>(), true));
+            // add final state with epsilon
             s.fromRegExTree(ret);
             EAutomata ndfa = DFA.dfa(s);
             MinState ms = MinState.minimisation(ndfa);

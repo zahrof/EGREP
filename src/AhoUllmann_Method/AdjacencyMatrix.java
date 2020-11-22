@@ -40,7 +40,8 @@ public class AdjacencyMatrix {
             for(int j = 0; j < matrix[i].length; j++)
                 matrix[i][j] = new ArrayList<>();
         for(Transition t : ways)
-            matrix[t.source][t.character].add(new State(t.destination, t.terminal));
+            matrix[t.source][t.character].add(
+                    new State(t.destination, t.terminal));
     }
 
     public AdjacencyMatrix(int size) {
@@ -119,13 +120,16 @@ public class AdjacencyMatrix {
     public AdjacencyMatrix dfa(){
         ArrayList<Transition> ways = new ArrayList<>();
         Stack<States> process = new Stack<>();
-        // 0 est toujours l'état initial, on l'ajoute donc en premier dans la pile
-        process.push(new States(epsilonCLosure(new State(0, false))));
+        // 0 est toujours l'état initial, on l'ajoute donc en premier dans
+        // la pile
+        process.push(new States(epsilonCLosure(
+                new State(0, false))));
         while(!process.isEmpty()){
             States p = process.pop();
             for (int i = 0; i < ASCCI; i++){
                 Set<State> hs = new HashSet<>();
-                for (State e : p.states) hs.addAll(new HashSet<>(matrix[e.id][i]));
+                for (State e : p.states) hs.addAll(
+                        new HashSet<>(matrix[e.id][i]));
                 for (State e: hs) hs.addAll(epsilonCLosure(e));
                 if (hs.equals(p.states)){
                     ways.add(new Transition(p.id,i,p.id,p.terminal));
@@ -152,7 +156,8 @@ public class AdjacencyMatrix {
                     for (State s : matrix[i][j]) {
                         tab[s.id].terminal = s.terminal;
                         tab[i].sons.put(j, tab[s.id]);
-                        ArrayList<MinState> value = tab[s.id].father.getOrDefault(j,new ArrayList<>());
+                        ArrayList<MinState> value =
+                                tab[s.id].father.getOrDefault(j,new ArrayList<>());
                         value.add(tab[i]);
                         tab[s.id].father.put(j,value);
                     }
@@ -173,44 +178,11 @@ public class AdjacencyMatrix {
     }
 
     public boolean sameStateSet(State elt1, State elt2, Set<States> fnf){
-        for (States s : fnf) if (s.contains(elt1) && s.contains(elt2)) return true;
+        for (States s : fnf)
+            if (s.contains(elt1) && s.contains(elt2)) return true;
         return false;
     }
 
-    public MinState minimisation() {
-        ArrayList<MinState> automate =getMinAutomate();
-        int sizeAutomata = automate.size();
-        int i=0;
-        while(i<sizeAutomata){
-             int j=1;
-            MinState ms;
-            while(j<sizeAutomata){
-                ms=automate.get(i).fusion(automate.get(j));
-                if(ms!=null && i!=j){
-                    automate.add(ms); // CAREFULL Risque d'erreur
-                    if(i<j){
-                        automate.remove(j);
-                        automate.remove(i); 
-                    }else {
-                        automate.remove(i);
-                        automate.remove(j);
-                    }
-                    sizeAutomata--;
-                    i=0;
-                    j=0;
-                }
-                j++;
-            }i++; 
-        }
-        MinState min = null;
-        for (MinState ms: automate) {
-            if(ms.id==0){
-                min=ms; 
-                break; 
-            }
-        }
-        return min; 
-    }
 
     public Set<States> minimisation2() {
         getMinAutomate();
@@ -229,21 +201,27 @@ public class AdjacencyMatrix {
                     for(State e2 : s.states){
                         if(e1.equals(e2)) continue;
                         boolean into = false;
-                        for (Couple c: couples) if(e1 == c.a && e2 == c.b || e1 == c.b && e2 == c.a) into = true;
+                        for (Couple c: couples) if(e1 == c.a && e2 == c.b
+                                || e1 == c.b && e2 == c.a) into = true;
                         if (!into) couples.add(new Couple(e1, e2));
                     }
                 for (Couple c : couples){
                     boolean equal = true;
                     Set<Integer> ways = new HashSet<>();
                     for(int i = 0; i < ASCCI; i++){
-                        if(!matrix[c.a.id][i].isEmpty() && matrix[c.b.id][i].isEmpty()
-                        || matrix[c.a.id][i].isEmpty() && !matrix[c.b.id][i].isEmpty()){
+                        if(!matrix[c.a.id][i].isEmpty()
+                                && matrix[c.b.id][i].isEmpty()
+                        || matrix[c.a.id][i].isEmpty() &&
+                                !matrix[c.b.id][i].isEmpty()){
                             equal = false;
-                            if(!present(nouv, c.a)) nouv.add((new States()).add(c.a,i));
-                            if(!present(nouv,c.b)) nouv.add((new States()).add(c.b,i));
+                            if(!present(nouv, c.a))
+                                nouv.add((new States()).add(c.a,i));
+                            if(!present(nouv,c.b))
+                                nouv.add((new States()).add(c.b,i));
                             break;
                         }
-                        if(matrix[c.a.id][i].isEmpty() && matrix[c.b.id][i].isEmpty()) continue;
+                        if(matrix[c.a.id][i].isEmpty()
+                                && matrix[c.b.id][i].isEmpty()) continue;
                         if(!sameStateSet(c.a, c.b, fnf)){
                             equal = false;
                             break;
@@ -259,7 +237,8 @@ public class AdjacencyMatrix {
         return fnf;
     }
 
-    private Set<States> ajout(State a, State b, Set<States> nouv, Set<Integer> ways) {
+    private Set<States> ajout(State a, State b, Set<States> nouv,
+                              Set<Integer> ways) {
         for (States s: nouv)
             if(s.contains(a)&&s.contains(b)) return nouv;
         Set<States> res = new HashSet<>();
@@ -297,7 +276,8 @@ public class AdjacencyMatrix {
         for(int i = 0; i < matrix.length; i++)
             for (int j = 0; j < matrix[i].length; j++)
                 if (!matrix[i][j].isEmpty())
-                    res = res + i + "(" + (char)j + ") -> " + matrix[i][j] + "\n";
+                    res = res + i + "(" + (char)j + ") -> " +
+                            matrix[i][j] + "\n";
 
         return res;
     }

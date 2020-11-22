@@ -20,7 +20,7 @@ public class DFA {
             }
 
         EAutomata res = ta[0];
-        return renameAll(ta[0], EAutomata.getCounter());
+        return renameAll(ta[0]);
     }
 
     public static EAutomata absorb(EAutomata a){
@@ -36,7 +36,7 @@ public class DFA {
         return absorb(a);
     }
 
-    public static EAutomata renameAll(EAutomata root, int oldSize){
+    public static EAutomata renameAll(EAutomata root){
         EAutomata[] tab = getAll(root);
         int counter = 0;
         Stack<EAutomata> s = new Stack<>();
