@@ -1,3 +1,9 @@
-du vas dans le sous dossier java et tu lance
+## Utilisation
+- Ouvrir un terminal dans le fichier source et lancer les commandes suivantes:
+    javac javaPackage/*.java
+    java javaPackage.Main $RegEx $CheminCompletVersLeLivre
+    // Notons que $RegEx et $CheminCompletVersLeLivre sont des variables que
+    // l'utilisateur définit.
 
-    - javac
+
+

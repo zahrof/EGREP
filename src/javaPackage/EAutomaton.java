@@ -1,4 +1,4 @@
-package java;
+package javaPackage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +102,7 @@ public class EAutomaton extends Automaton {
                 // Modification des chemins du noeud courant
                 sons.clear(); this.put(-1, s);
 
-                // Calcul RegEx R1 dans this puis R2 dans s
+                // Calcul java.RegEx R1 dans this puis R2 dans s
                 this.initialize(ret.subTrees.get(0));
                 s.initialize(ret.subTrees.get(1));
                 break;
@@ -112,7 +112,7 @@ public class EAutomaton extends Automaton {
                 EAutomaton e1 = new EAutomaton(
                         (HashMap<Integer, ArrayList<EAutomaton>>)
                                 sons.clone(),false);
-                // Liaison + Calcul RegEx R1
+                // Liaison + Calcul java.RegEx R1
                 s1.put(-1, e1); s1.initialize(ret.subTrees.get(0));
 
                 // Creation chemin alternatif R2
@@ -120,7 +120,7 @@ public class EAutomaton extends Automaton {
                 EAutomaton e2 = new EAutomaton(
                         (HashMap<Integer, ArrayList<EAutomaton>>)
                                 sons.clone(),false);
-                // Liaison + Calcul RegEx R2
+                // Liaison + Calcul java.RegEx R2
                 s2.put(-1, e2); s2.initialize(ret.subTrees.get(1));
 
                 // Modification des chemins du noeud courant

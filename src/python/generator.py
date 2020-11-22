@@ -8,7 +8,7 @@ MIN_MAJ = 65
 MAX_MAJ = 90
 MAX_ITE = 6
 
-def RegEx():
+def java.RegEx():
     s = ""
     r = random.random()
     if r < 0.3:
@@ -40,14 +40,14 @@ def RegEx():
 if __name__ == "__main__":
     #Création du fichier de test
     if True:
-        file = open("RegEx.txt", 'w')
+        file = open("java.RegEx.txt", 'w')
         for i in range(100):
-            file.write(RegEx() + '\n')
+            file.write(java.RegEx() + '\n')
         file.close()
-        print("RegEx done.\njava...")
+        print("java.RegEx done.\njava...")
 
     #Ouverture du fichier Test
-    lines = open("RegEx.txt", 'r').read().split('\n')[:-1]
+    lines = open("java.RegEx.txt", 'r').read().split('\n')[:-1]
 
     #Deplacement dans le src/java & Compilation du java
     os.chdir("../java/")
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     times = []
     for line in lines:
         t = time.time()
-        os.popen("java Main \"" + line + "\" Babylone.txt")
+        os.popen("java java.Main \"" + line + "\" Babylone.txt")
         times.append(time.time() - t)
 
     print("java done.\nsave...")
@@ -68,7 +68,7 @@ if __name__ == "__main__":
         save.write(str(t) + '\n')
     save.close()
 
-    lines = open("RegEx.txt", 'r').read().split('\n')[:-1]
+    lines = open("java.RegEx.txt", 'r').read().split('\n')[:-1]
     #Retour dans src/java pour Babylone.txt
     os.chdir("../java/")
     print("save done.\negrep...")

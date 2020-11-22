@@ -1,4 +1,4 @@
-package java;
+package javaPackage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,13 +9,13 @@ public class Main {
 
 
 /*    public static void main(String arg[]){
-        Book book =
+        java.Book book =
         new FileReadingUtilitaryClasses.
-        Book("/home/zahrof/Documents/Master2/DAAR/Projet1/EGREP/src/Babylone.txt");
+        java.Book("/home/zahrof/Documents/Master2/DAAR/Projet1/EGREP/src/Babylone.txt");
         String motif = "Sargon";
 
         ArrayList<FileReadingUtilitaryClasses.Pose> kmp =
-         (new KMP()).KMP(motif, book);
+         (new java.KMP()).java.KMP(motif, book);
         System.out.print(kmp );
     }*/
 
@@ -28,7 +28,7 @@ public class Main {
             if(end!=null) positions.add(new Word(b, cursor, end));
             cursor = Position.move (b,cursor,1);
         }
-        for(Word w : positions) System.out.println(w.toString());
+        for(Word w : positions) System.out.println(w.line());
     }
 
     // return null

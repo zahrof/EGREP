@@ -1,4 +1,4 @@
-package java;
+package javaPackage;
 
 import java.util.ArrayList;
 
@@ -200,7 +200,7 @@ public class RegEx {
     }
 
     //EXAMPLE
-    // --> RegEx from Aho-Ullman book Chap.10 Example 10.25
+    // --> java.RegEx from Aho-Ullman book Chap.10 Example 10.25
     private static RegExTree exampleAhoUllman() {
         RegExTree a = new RegExTree('a', new ArrayList<>());
         RegExTree b = new RegExTree('b', new ArrayList<>());

@@ -28,14 +28,14 @@ if __name__ == "__main__":
         plt.xlabel("temps d'execution egrep (en s)")
         plt.ylabel("temps d'execution du clone (en s)")
         plt.legend()
-        plt.title("Compairaison d'egrep et du clone sur un même RegEx")
+        plt.title("Compairaison d'egrep et du clone sur un même java.RegEx")
         plt.savefig("egrep_java.png")
         plt.show()
 
     if False:
-        RegEx = open("RegEx.txt", 'r').read().split('\n')[:-1]
+        java.RegEx = open("java.RegEx.txt", 'r').read().split('\n')[:-1]
         times = [float(t) for t in open("times_java.txt", 'r').read().split('\n')[:-1]]
-        plt.scatter([size(e) for e in RegEx], times)
+        plt.scatter([size(e) for e in java.RegEx], times)
         plt.savefig("java_size.png")
         plt.show()
 

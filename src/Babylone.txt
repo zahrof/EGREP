@@ -2802,7 +2802,7 @@ unidentified temple known as "Z," which is given in Fig. 24.
 
 GROUND-PLAN OF THE UNIDENTIFIED TEMPLE KNOWN AS "Z."
 
-A1: Main Court of temple. A2, A3: Subsidiary Courts. B: Ante-chamber
+A1: java.Main Court of temple. A2, A3: Subsidiary Courts. B: Ante-chamber
 to Shrine. C: Shrine. E1, E2, E3: Entrance-chambers, or Vestibules, to
 temple, d, c2, c3: Service-rooms for Shrine, _s_: Dais, or postament,
 for cult-statue. 1-3: Porters' rooms. 4, 5: Chambers with access to
@@ -2874,7 +2874,7 @@ GROUND-PLAN OF THE TEMPLE OF ISHTAR OF AKKAD.
 A: Open Court. B: Ante-chamber to Shrine. C: Shrine. El, E2:
 Entrance-chambers, or Vestibules, to temple. _b_1, _b_2, _b_3:
 Service-rooms for Ante-chamber, _d_: Service-room for Shrine, _e_:
-Well, _s_: Position of statue of Ishtar, on dais or postament against
+Well, _s_: java.Position of statue of Ishtar, on dais or postament against
 niche in back-wall of Shrine. 1-4: Priests' apartments or store-rooms.
 5-7: Porters' rooms. 8: Entrance-chamber to small inner court. 9:
 Small open court in which were two circular stores or granaries.
@@ -2982,11 +2982,11 @@ GROUND-PLAN OF E-TEMEN-ANKI AND E-SAGILA.
 A: Sacred Way, or Procession Street. B: E-temen-anki, the Ziggurat
 or Temple-tower of Babylon. C: E-sagila, the temple of Marduk. D:
 Eastern Annex to E-sagila. E: Northern Court of the Peribolos or sacred
-precincts. P: Main Court. G: Western Court. H, J: Temple-magazines. K:
+precincts. P: java.Main Court. G: Western Court. H, J: Temple-magazines. K:
 Arakhtu-wall. L: Nebuchadnezzar's wall. M: River-wall of Nabonidus. N:
 Gateway in River-wall. P: Stone piers of Bridge over the Euphrates.
 1-12: Entrances to the Peribolos, No. 2 marking the position of the
-Main Entrance.
+java.Main Entrance.
 
 (After Wetzel.)]
 
@@ -3036,7 +3036,7 @@ the east side,[163] exactly opposite the east face of the temple-tower.
 The breccia paving of the Sacred Way was here continued within the area
 of the precincts, along the centre of the open space, or deep recess,
 between the temple-magazines. The great gateway probably spanned the
-western end of this recess, thus completing the line of the Main Court
+western end of this recess, thus completing the line of the java.Main Court
 upon that side.[164]
 
 The most striking feature of E-temen-anki was naturally the
@@ -3218,7 +3218,7 @@ BABYLON.
 A: The Sacred Way or Procession-Street of Babylon. B: E-makh, the
 temple of the goddess Ninmakh. C: South-east corner of the Southern
 Citadel with the Palace of Nebuchadnezzar. D: Canal and basin. E:
-Northern Court of the Peribolos of E-temen-anki. P: Main Court of the
+Northern Court of the Peribolos of E-temen-anki. P: java.Main Court of the
 Peribolos. G: The mound Merkes. H: Temple of Ishtar of Akkad. J: Greek
 Theatre. K: Old canal.
 
@@ -6439,7 +6439,7 @@ West-Semitic descent.
 In view of the closer relations which had now been established between
 Babylonia and the West, it may be interesting to recall that an echo
 from these troubled times found its way into the early traditions
-of the Hebrews, and has been preserved in the Book of Genesis. It
+of the Hebrews, and has been preserved in the java.Book of Genesis. It
 is there related[98] that Amraphel king of Shinar, Arioch king of
 Ellasar, Chedorlaomer king of Elam, and Tidal king of Goiim or the
 "nations," acting as members of a confederation, invaded Eastern
