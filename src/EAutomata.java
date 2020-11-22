@@ -39,9 +39,9 @@ public class EAutomata {
 
     public void put(Integer key, EAutomata a) {
         if (a == null) return;
-        ArrayList<EAutomata> all = (ArrayList<EAutomata>) sons.getOrDefault(key, new ArrayList<>()).clone();
-        all.add(a);
-        sons.put(key, all);
+        ArrayList<EAutomata> value = (ArrayList<EAutomata>) sons.getOrDefault(key, new ArrayList<>()).clone();
+        value.add(a);
+        sons.put(key, value);
     }
 
     public void fromRegExTree(RegExTree ret){
@@ -85,6 +85,15 @@ public class EAutomata {
                 sons.put(ret.root, sons.remove(-1));
                 System.out.println("");
         }
+    }
+
+    public void merge(Integer key, ArrayList<EAutomata> l){
+        ArrayList<EAutomata> value = sons.getOrDefault(key, new ArrayList<>());
+        for (EAutomata e : l){
+            if(!value.contains(e)) value.add(e);
+        }
+        sons.put(key, value);
+
     }
 
     public static int getCounter(){

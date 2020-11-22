@@ -21,14 +21,14 @@ public class KMP {
                 if (index == motif.length()) {
                     result.add(start.copy());
 
-                    current = RegEx.move(book, start, carryover[index] + 1);
+                    current = Pose.move(book, start, carryover[index] + 1);
                     index = 0;
                 }
                 else{
-                    current = RegEx.move(book, current, 1);
+                    current = Pose.move(book, current, 1);
                 }
             } else {
-                current = RegEx.move(book, start, carryover[index] + 1);
+                current = Pose.move(book, start, carryover[index] + 1);
                 index = 0;
             }
             if (index == 0) start = current.copy();
