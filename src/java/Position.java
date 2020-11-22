@@ -1,3 +1,5 @@
+package java;
+
 public class Position {
     public int page, line, col;
 
