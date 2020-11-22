@@ -83,7 +83,6 @@ public class EAutomata {
                 break;
             default:
                 sons.put(ret.root, sons.remove(-1));
-                System.out.println("");
         }
     }
 

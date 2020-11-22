@@ -37,8 +37,6 @@ public class MinState {
         MinState res;
         if(ms.id>this.id) res  = new MinState(this.id,this.terminal);
         else res = new MinState(ms.id, this.terminal);
-
-        //System.out.println("new fusion " + this.id + " with " + ms.id);
         res.sons.putAll(this.sons);
         res.sons.putAll(ms.sons);
 
@@ -71,7 +69,6 @@ public class MinState {
                 } else if (f.sons.containsKey(key)) {
                     old = f.sons.get(key);
                     f.sons.put(key, res);
-                    System.out.println(old);
                 }
             }
 

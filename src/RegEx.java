@@ -26,24 +26,16 @@ public class RegEx {
 
 
     //MAIN
-    public static void main(String arg[]) {
-        System.out.println("Welcome to Bogota, Mr. Thomas Anderson.");
-        if (arg.length!=0) {
-            regEx = arg[0];
+    public static void main(String args[]) {
+        if (args.length!=0) {
+            regEx = args[0];
         } else {
             Scanner scanner = new Scanner(System.in);
             System.out.print("  >> Please enter a regEx: ");
             regEx = scanner.next();
         }
-        System.out.println("  >> Parsing regEx \""+regEx+"\".");
-        System.out.println("  >> ...");
-
-        if (regEx.length()<1) {
-            System.err.println("  >> ERROR: empty regEx.");
-        } else {
-            System.out.print("  >> ASCII codes: ["+(int)regEx.charAt(0));
-            for (int i=1;i<regEx.length();i++) System.out.print(","+(int)regEx.charAt(i));
-            System.out.println("].");
+        if (regEx.length()<1) System.err.println("  >> ERROR: empty regEx.");
+         else {
             RegExTree ret = null;
             try {
                 ret = parse();
@@ -52,24 +44,14 @@ public class RegEx {
             }
             EAutomata s = new EAutomata(new HashMap<>(),false);
             s.put(-1, new EAutomata(new HashMap<>(), true)); // add final state with epsilon
-
             s.fromRegExTree(ret);
-            System.out.println("Starting 1");
             EAutomata ndfa = DFA.dfa(s);
             MinState ms = MinState.minimisation(ndfa);
-
-            Book b = new Book("/home/sslye/Workspace/DAAR/EGREP/src/Babylone.txt");
-
+            Book b = new Book(args[1]);
             egrep(b,ms);
-            //EAutomata minAutomata= new EAutomata(min,dfa);
-            //minAutomata.toString();
-            System.out.println("  >> Tree result: "+ret.toString()+".");
 
         }
 
-        System.out.println("  >> ...");
-        System.out.println("  >> Parsing completed.");
-        System.out.println("Goodbye Mr. Anderson.");
     }
 
     private static void egrep(Book b, MinState ms){
@@ -78,14 +60,10 @@ public class RegEx {
         Pose end;
         while(cursor!=null){
             end = app(b, cursor, ms);
-            if(end!=null) {
-                positions.add(new Word(b, cursor, end));
-            }
+            if(end!=null) positions.add(new Word(b, cursor, end));
             cursor = Pose.move (b,cursor,1);
         }
-        System.out.println("Finish");
-        for(Word w : positions)
-            System.out.println(w.line());
+        for(Word w : positions) System.out.println(w.toString());
     }
 
     // return null

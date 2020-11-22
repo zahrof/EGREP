@@ -16,7 +16,7 @@ public class Pose{
     }
 
     public String toString(){
-        return "(" + page + ", " + line + ", " + col + ")";
+        return "(Page:" + page + ", Ligne:" + line + ", Colonne: " + col + ")";
     }
 
     public static Pose move(Book book, Pose start, int gap){

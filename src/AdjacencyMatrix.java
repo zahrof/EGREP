@@ -2,7 +2,7 @@ import java.util.*;
 
 public class AdjacencyMatrix {
 
-    ArrayList<State>[][] matrix;
+    protected ArrayList<State>[][] matrix;
 
     final static int ASCCI = 128;
     final static int EPSILON = ASCCI;
@@ -115,12 +115,10 @@ public class AdjacencyMatrix {
 
     // transformation from nfa to dfa
     public AdjacencyMatrix dfa(){
-        System.out.println("dfa 1");
         ArrayList<Transition> ways = new ArrayList<>();
         Stack<States> process = new Stack<>();
         // 0 est toujours l'état initial, on l'ajoute donc en premier dans la pile
         process.push(new States(epsilonCLosure(new State(0, false))));
-        System.out.println("dfa 2");
         while(!process.isEmpty()){
             States p = process.pop();
             for (int i = 0; i < ASCCI; i++){
@@ -139,7 +137,6 @@ public class AdjacencyMatrix {
 
             }
         }
-        System.out.println("dfa 3");
         return new AdjacencyMatrix(ways);
 
     }
@@ -216,7 +213,6 @@ public class AdjacencyMatrix {
     public Set<States> minimisation2() {
         getMinAutomate();
         Set<States> fnf = null;
-        System.out.println(fnf);
         boolean changes = true;
         States.reset();
         do{

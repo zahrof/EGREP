@@ -10,13 +10,14 @@ public class Word {
     }
 
     public String toString(){
-        String s = "";
+        String s = "Début: "+this.start + " \nFin: "+this.end+"\nMot:";
         Pose cursor = start;
         while(!cursor.equals(end)) {
             s = s + book.get(cursor.page, cursor.line, cursor.col);
             cursor = Pose.move(book, cursor, 1);
         }
         return s + book.get(cursor.page, cursor.line, cursor.col);
+       /*return "Début: "+this.start + " \nFin: "+this.end+"\n";*/
     }
 
     public String line(){
