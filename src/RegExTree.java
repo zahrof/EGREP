@@ -1,5 +1,3 @@
-package AhoUllmann_Method;
-
 import java.util.ArrayList;
 
 public class RegExTree {

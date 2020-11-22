@@ -1,32 +1,29 @@
-package AhoUllmann_Method;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class MinState {
-    public HashMap<Integer,MinState> sons= new HashMap<>();
-    public int id;
-    public boolean terminal=false;
-    public HashMap<Integer,ArrayList<MinState>> father= new HashMap<>();
 
-    public MinState(int id) {
-        this.id = id;
+public class MinimalizedAutomaton extends Automaton {
+    public HashMap<Integer, MinimalizedAutomaton> sons= new HashMap<>();
+    public boolean terminal=false;
+    public HashMap<Integer,ArrayList<MinimalizedAutomaton>> father= new HashMap<>();
+
+    public MinimalizedAutomaton(int id) {
+        super(id);
     }
 
-    public MinState(int id, boolean terminal) {
-        this.id = id;
-        this.terminal = terminal;
+    public MinimalizedAutomaton(int id, boolean terminal) {
+       super(id,terminal);
     }
 
     public boolean equals(Object o) {
         if (o == this) return true;
-        if (!(o instanceof MinState)) return false;
-        MinState s = (MinState) o;
+        if (!(o instanceof MinimalizedAutomaton)) return false;
+        MinimalizedAutomaton s = (MinimalizedAutomaton) o;
         return id == s.id && terminal == s.terminal;
     }
 
-    public MinState fusion(MinState ms){
+    public MinimalizedAutomaton merge(MinimalizedAutomaton ms){
         if(ms==this) return this;
         if(ms==null) return this;
         if(ms.terminal!=this.terminal) return null;
@@ -36,9 +33,9 @@ public class MinState {
                     ms.sons.get(i).equals(ms)) continue;
             if (!this.sons.get(i).equals(ms.sons.get(i))) return null;
         }
-        MinState res;
-        if(ms.id>this.id) res  = new MinState(this.id,this.terminal);
-        else res = new MinState(ms.id, this.terminal);
+        MinimalizedAutomaton res;
+        if(ms.id>this.id) res  = new MinimalizedAutomaton(this.id,this.terminal);
+        else res = new MinimalizedAutomaton(ms.id, this.terminal);
         res.sons.putAll(this.sons);
         res.sons.putAll(ms.sons);
 
@@ -56,19 +53,16 @@ public class MinState {
             }
         }
 
-        MinState old;
+        MinimalizedAutomaton old;
         for(Integer key : res.father.keySet())
-            for (MinState f : res.father.get(key)){
+            for (MinimalizedAutomaton f : res.father.get(key)){
                 if (f.equals(this) || f.equals(ms)){
-                    ArrayList<MinState> value = new ArrayList<>();
-                    for(MinState e : res.father.get(key))
+                    ArrayList<MinimalizedAutomaton> value = new ArrayList<>();
+                    for(MinimalizedAutomaton e : res.father.get(key))
                         if(!e.equals(this) && !e.equals(ms))
                             value.add(e);
                     value.add(res);
                     res.father.put(key, value);
-                    //res.father.get(key).remove(this);
-                    //res.father.get(key).remove(ms);
-                    //res.father.get(key).add(res);
                 } else if (f.sons.containsKey(key)) {
                     old = f.sons.get(key);
                     f.sons.put(key, res);
@@ -79,15 +73,15 @@ public class MinState {
         return res;
     }
 
-    public static ArrayList<MinState> fromEAutomata(EAutomata a){
-        MinState[] tab = new MinState[EAutomata.counter];
-        for(int i = 0; i < tab.length; i++) tab[i] = new MinState(i);
-        for(EAutomata e : DFA.getAll(a)){
+    public static ArrayList<MinimalizedAutomaton> fromEAutomata(EAutomaton a){
+        MinimalizedAutomaton[] tab = new MinimalizedAutomaton[EAutomaton.counter];
+        for(int i = 0; i < tab.length; i++) tab[i] = new MinimalizedAutomaton(i);
+        for(EAutomaton e : EAutomaton.getAll(a)){
             tab[e.id].terminal = e.terminal;
             for(Integer key : e.sons.keySet())
-                for(EAutomata s : e.sons.get(key)) {
+                for(EAutomaton s : e.sons.get(key)) {
                     tab[e.id].sons.put(key, tab[s.id]);
-                    ArrayList<MinState> value =
+                    ArrayList<MinimalizedAutomaton> value =
                             tab[s.id].father.getOrDefault(
                                     key, new ArrayList<>());
                     value.add(tab[e.id]);
@@ -98,15 +92,15 @@ public class MinState {
         return new ArrayList<>(Arrays.asList(tab));
     }
 
-    public static MinState minimisation(EAutomata a) {
-        ArrayList<MinState> automate = fromEAutomata(a);
+    public static MinimalizedAutomaton minimize(EAutomaton a) {
+        ArrayList<MinimalizedAutomaton> automate = fromEAutomata(a);
         int sizeAutomata = automate.size();
         int i=0;
         while(i<sizeAutomata){
             int j=1;
-            MinState ms;
+            MinimalizedAutomaton ms;
             while(j<sizeAutomata){
-                ms=automate.get(i).fusion(automate.get(j));
+                ms=automate.get(i).merge(automate.get(j));
                 if(ms!=null && i!=j){
                     automate.add(ms); // CAREFULL Risque d'erreur
                     if(i<j){
@@ -123,8 +117,8 @@ public class MinState {
                 j++;
             }i++;
         }
-        MinState min = null;
-        for (MinState ms: automate) {
+        MinimalizedAutomaton min = null;
+        for (MinimalizedAutomaton ms: automate) {
             if(ms.id==0){
                 min=ms;
                 break;
@@ -133,11 +127,11 @@ public class MinState {
         return min;
     }
 
-    public MinState clone(){
-        MinState res = new MinState(id);
+    public MinimalizedAutomaton clone(){
+        MinimalizedAutomaton res = new MinimalizedAutomaton(id);
         res.terminal=terminal;
-        res.sons= (HashMap<Integer, MinState>) this.sons.clone();
-        res.father = (HashMap<Integer, ArrayList<MinState>>)
+        res.sons= (HashMap<Integer, MinimalizedAutomaton>) this.sons.clone();
+        res.father = (HashMap<Integer, ArrayList<MinimalizedAutomaton>>)
                 this.father.clone();
         return res;
     }

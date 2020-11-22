@@ -1,5 +1,3 @@
-package FileReadingUtilitaryClasses;
-
 public class Word {
     public Book book;
     public Position start;

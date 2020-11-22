@@ -1,13 +1,3 @@
-package AhoUllmann_Method;
-
-import AhoUllmann_Method.DFA;
-import AhoUllmann_Method.EAutomata;
-import AhoUllmann_Method.MinState;
-import AhoUllmann_Method.RegExTree;
-
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.lang.Exception;
@@ -208,7 +198,7 @@ public class RegEx {
     }
 
     //EXAMPLE
-    // --> AhoUllmann_Method.RegEx from Aho-Ullman book Chap.10 Example 10.25
+    // --> RegEx from Aho-Ullman book Chap.10 Example 10.25
     private static RegExTree exampleAhoUllman() {
         RegExTree a = new RegExTree('a', new ArrayList<>());
         RegExTree b = new RegExTree('b', new ArrayList<>());

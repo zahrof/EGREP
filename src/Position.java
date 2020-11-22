@@ -1,5 +1,3 @@
-package FileReadingUtilitaryClasses;
-
 public class Position {
     public int page, line, col;
 

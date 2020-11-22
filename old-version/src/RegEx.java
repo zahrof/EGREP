@@ -206,7 +206,7 @@ public class RegEx {
     }
 
     //EXAMPLE
-    // --> AhoUllmann_Method.RegEx from Aho-Ullman book Chap.10 Example 10.25
+    // --> RegEx from Aho-Ullman book Chap.10 Example 10.25
     private static RegExTree exampleAhoUllman() {
         RegExTree a = new RegExTree((int)'a', new ArrayList<RegExTree>());
         RegExTree b = new RegExTree((int)'b', new ArrayList<RegExTree>());
