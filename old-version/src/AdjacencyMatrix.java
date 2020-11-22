@@ -142,7 +142,7 @@ public class AdjacencyMatrix {
         // Comment initialiser avec le bon nombre d'états?
         AdjacencyMatrix res = new AdjacencyMatrix(1000);
         int counterNewStates =0;
-        // Create the start state of the DFA by taking the epsilon-closure of the start state of the NFA
+        // Create the start state of the AhoUllmann_Method.DFA by taking the epsilon-closure of the start state of the NFA
         boolean final_state = false;
         Set<State> a = epsilonClosure(new State(0, false));
         for (State e : a ) if(e.isFinalState) final_state = true;

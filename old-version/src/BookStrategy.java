@@ -8,7 +8,7 @@
             RegExTree tree = RegEx.parser(arg);
             int automatonSize= RegEx.countSize(tree,0);
             AdjacencyMatrix automata = new AdjacencyMatrix(automatonSize);
-            automata.fillMatrix(tree, 0,automatonSize); // EAutomata
+            automata.fillMatrix(tree, 0,automatonSize); // AhoUllmann_Method.EAutomata
             automata = automata.subsetConstruction();
             Set<SetOfStates> minAutomata = automata.minimisation();
              minAutomata = SetOfStates.rennomage(minAutomata);

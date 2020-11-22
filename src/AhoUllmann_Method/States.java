@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package AhoUllmann_Method;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

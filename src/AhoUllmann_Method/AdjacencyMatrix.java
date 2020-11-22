@@ -1,3 +1,5 @@
+package AhoUllmann_Method;
+
 import java.util.*;
 
 public class AdjacencyMatrix {

@@ -1,3 +1,5 @@
+package AhoUllmann_Method;
+
 public class Couple {
     public State a;
     public State b;

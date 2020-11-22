@@ -1,3 +1,5 @@
+package FileReadingUtilitaryClasses;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,24 +43,24 @@ public class Book{
         return str;
     }
 
-    public int size(){
+    public int getSize(){
         return book.size();
     }
 
-    public int size(int index){
+    public int getSize(int index){
         return book.get(index).size();
     }
 
-    public ArrayList<String> get(int pageIndex){
+    public ArrayList<String> getPage(int pageIndex){
         return book.get(pageIndex);
     }
 
-    public String get(int pageIndex, int lineIndex){
+    public String getLine(int pageIndex, int lineIndex){
         return book.get(pageIndex).get(lineIndex);
     }
 
-    public char get(int pageIndex, int lineIndex, int charIndex){
-        return this.get(pageIndex, lineIndex).charAt(charIndex);
+    public char getCharacter(int pageIndex, int lineIndex, int charIndex){
+        return this.getLine(pageIndex, lineIndex).charAt(charIndex);
     }
 
 

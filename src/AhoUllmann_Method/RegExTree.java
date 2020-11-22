@@ -1,3 +1,5 @@
+package AhoUllmann_Method;
+
 import java.util.ArrayList;
 
 public class RegExTree {
@@ -16,10 +18,10 @@ public class RegExTree {
         return result+")";
     }
     private String rootToString() {
-        if (root==RegEx.CONCAT) return ".";
-        if (root==RegEx.ETOILE) return "*";
-        if (root==RegEx.ALTERN) return "|";
-        if (root==RegEx.DOT) return ".";
+        if (root== RegEx.CONCAT) return ".";
+        if (root== RegEx.ETOILE) return "*";
+        if (root== RegEx.ALTERN) return "|";
+        if (root== RegEx.DOT) return ".";
         return Character.toString((char)root);
     }
 }

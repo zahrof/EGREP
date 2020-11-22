@@ -1,6 +1,6 @@
-import javax.rmi.ssl.SslRMIClientSocketFactory;
+package AhoUllmann_Method;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
 public class DFA {

@@ -1,3 +1,5 @@
+package AhoUllmann_Method;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -53,7 +55,7 @@ public class EAutomata {
                 // Modification des chemins du noeud courant
                 sons.clear(); this.put(-1, s);
 
-                // Calcul RegEx R1 dans this puis R2 dans s
+                // Calcul AhoUllmann_Method.RegEx R1 dans this puis R2 dans s
                 this.fromRegExTree(ret.subTrees.get(0));
                 s.fromRegExTree(ret.subTrees.get(1));
                 break;
@@ -61,12 +63,12 @@ public class EAutomata {
                 // Creation chemin alternatif R1
                 EAutomata s1 = new EAutomata(new HashMap<>(),false);
                 EAutomata e1 = new EAutomata((HashMap<Integer, ArrayList<EAutomata>>) sons.clone(),false);
-                s1.put(-1, e1); s1.fromRegExTree(ret.subTrees.get(0)); // Liaison + Calcul RegEx R1
+                s1.put(-1, e1); s1.fromRegExTree(ret.subTrees.get(0)); // Liaison + Calcul AhoUllmann_Method.RegEx R1
 
                 // Creation chemin alternatif R2
                 EAutomata s2 = new EAutomata(new HashMap<>(),false);
                 EAutomata e2 = new EAutomata((HashMap<Integer, ArrayList<EAutomata>>) sons.clone(),false);
-                s2.put(-1, e2); s2.fromRegExTree(ret.subTrees.get(1)); // Liaison + Calcul RegEx R2
+                s2.put(-1, e2); s2.fromRegExTree(ret.subTrees.get(1)); // Liaison + Calcul AhoUllmann_Method.RegEx R2
 
                 // Modification des chemins du noeud courant
                 sons.clear(); this.put(-1, s1); this.put(-1, s2);

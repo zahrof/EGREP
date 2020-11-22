@@ -1,9 +1,16 @@
+package AhoUllmann_Method;
+
+import AhoUllmann_Method.DFA;
+import AhoUllmann_Method.EAutomata;
+import AhoUllmann_Method.MinState;
+import AhoUllmann_Method.RegExTree;
+
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.lang.Exception;
-import java.util.Set;
 
 public class RegEx {
     //MACROS
@@ -17,73 +24,15 @@ public class RegEx {
     static final int DOT = 0xD07;
 
     //REGEX
-    private static String regEx;
+    public static String regEx;
+
 
     //CONSTRUCTOR
     public RegEx(){}
 
-    //method move
-
-
-    //MAIN
-    public static void main(String args[]) {
-        if (args.length!=0) {
-            regEx = args[0];
-        } else {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("  >> Please enter a regEx: ");
-            regEx = scanner.next();
-        }
-        if (regEx.length()<1) System.err.println("  >> ERROR: empty regEx.");
-         else {
-            RegExTree ret = null;
-            try {
-                ret = parse();
-            } catch (Exception e) {
-                System.err.println("  >> ERROR: syntax error for regEx \""+regEx+"\".");
-            }
-            EAutomata s = new EAutomata(new HashMap<>(),false);
-            s.put(-1, new EAutomata(new HashMap<>(), true)); // add final state with epsilon
-            s.fromRegExTree(ret);
-            EAutomata ndfa = DFA.dfa(s);
-            MinState ms = MinState.minimisation(ndfa);
-            Book b = new Book(args[1]);
-            egrep(b,ms);
-
-        }
-
-    }
-
-    private static void egrep(Book b, MinState ms){
-        Pose cursor = new Pose();
-        ArrayList<Word> positions = new ArrayList<>();
-        Pose end;
-        while(cursor!=null){
-            end = app(b, cursor, ms);
-            if(end!=null) positions.add(new Word(b, cursor, end));
-            cursor = Pose.move (b,cursor,1);
-        }
-        for(Word w : positions) System.out.println(w.toString());
-    }
-
-    // return null
-    private static Pose app(Book b, Pose cursor, MinState a) {
-        int i = b.get(cursor.page, cursor.line, cursor.col);
-        MinState son = a.sons.getOrDefault(i, null);
-        if(son!=null){
-            if(son.terminal) return cursor;
-            return app(b,Pose.move(b,cursor,1),son);
-        }
-        else
-            if (a.terminal)
-                return cursor;
-            else
-                return null;
-    }
-
 
     //FROM REGEX TO SYNTAX TREE
-    private static RegExTree parse() throws Exception {
+    public static RegExTree parse() throws Exception {
         //BEGIN DEBUG: set conditionnal to true for debug example
         if (false) throw new Exception();
         RegExTree example = exampleAhoUllman();
@@ -236,7 +185,7 @@ public class RegEx {
     }
 
     //EXAMPLE
-    // --> RegEx from Aho-Ullman book Chap.10 Example 10.25
+    // --> AhoUllmann_Method.RegEx from Aho-Ullman book Chap.10 Example 10.25
     private static RegExTree exampleAhoUllman() {
         RegExTree a = new RegExTree('a', new ArrayList<>());
         RegExTree b = new RegExTree('b', new ArrayList<>());

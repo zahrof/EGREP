@@ -1,3 +1,5 @@
+package AhoUllmann_Method;
+
 public class State {
 
     public int id;

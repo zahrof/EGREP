@@ -1,4 +1,5 @@
-import java.lang.reflect.Array;
+package AhoUllmann_Method;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
